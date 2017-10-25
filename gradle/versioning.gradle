@@ -28,7 +28,7 @@ if (!project.hasProperty("ignoreIncomingBuildReceipt") && new File(incomingBuild
     if (project.hasProperty("buildTimestamp")) {
         buildTime = timestampFormat.parse(buildTimestamp)
     } else {
-        if (isCiServer || ['install', 'installAll'].collectMany { [':' + it, it]}.any { gradle.startParameter.taskNames.contains(it) }) {
+        if (isCiServer || gradle.startParameter.taskNames.contains("install") || gradle.startParameter.taskNames.contains("installAll")) {
             buildTime = new Date()
         } else {
             def sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
